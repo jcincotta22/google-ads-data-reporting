@@ -10,4 +10,10 @@ class GoogleData < ActiveRecord::Base
   validates :campaign, presence: true
   validates :ad_group, presence: true
   validates :keyword, presence: true
+
+  ACCOUNT_COLLECTION = []
+  GoogleData.all.each do |data|
+    ACCOUNT_COLLECTION << data.account
+  end
+  ACCOUNT_COLLECTION.uniq!
 end
