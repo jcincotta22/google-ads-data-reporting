@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20161107141535) do
   enable_extension "plpgsql"
 
   create_table "google_data", force: :cascade do |t|
+    t.string   "account",                             null: false
     t.string   "campaign",                            null: false
     t.string   "ad_group",                            null: false
     t.string   "keyword",                             null: false

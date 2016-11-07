@@ -5,8 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+accounts = ['paint-night', 'apple', 'google', 'IBM']
 campaigns = ['first', 'second', 'third', 'fourth', 'fifth']
-ad_groups = ['paint-night', 'apple', 'google', 'IBM']
+ad_groups = ['paint-night1', 'apple1', 'google1', 'IBM1']
 paint_night_keywords = ['drink', 'paint', 'eat', 'fun']
 apple_keywords = ['iphone', 'tech', 'mac', 'computers']
 google_keywords = ['search', 'big company', 'data']
@@ -24,6 +25,7 @@ week = ['week 1', 'week 2', 'week 3', 'week 4']
 n = 0
 while n < 26 do
   GoogleData.create(
+    account: accounts.first,
     campaign: campaigns.first,
     ad_group: ad_groups.first,
     keyword: paint_night_keywords.sample,
@@ -34,10 +36,10 @@ while n < 26 do
     month: '10-1-2016',
     device: device.sample,
     impressions: rand(100),
-    clicks: rand(5000),
+    clicks: rand(4_000) + 1,
     conversions: rand(100),
     average_position: rand(50),
-    cost: rand(10),
+    cost: rand(5_000) + 10,
     search_impression_share: rand(50)
   )
   n+=1
@@ -45,7 +47,10 @@ end
 
 n = 0
 while n < 26 do
-  GoogleData.create(campaign: campaigns[1], ad_group: ad_groups[1],
+  GoogleData.create(
+    account: accounts[1],
+    campaign: campaigns[1],
+    ad_group: ad_groups[1],
     keyword: apple_keywords.sample,
     match_type: match_type.sample,
     click_type: click_type.sample,
@@ -54,9 +59,10 @@ while n < 26 do
     month: '10-1-2016',
     device: device.sample,
     impressions: rand(100),
-    clicks: rand(5000),
+    clicks: rand(4_000) + 1,
     conversions: rand(100),
     average_position: rand(50),
+    cost: rand(5_000) + 10,
     search_impression_share: rand(50)
   )
   n+=1
@@ -64,7 +70,10 @@ end
 
 n = 0
 while n < 26 do
-  GoogleData.create(campaign: campaigns[2], ad_group: ad_groups[2],
+  GoogleData.create(
+    account: accounts[2],
+    campaign: campaigns[2],
+    ad_group: ad_groups[2],
     keyword: google_keywords.sample,
     match_type: match_type.sample,
     click_type: click_type.sample,
@@ -73,9 +82,10 @@ while n < 26 do
     month: '10-1-2016',
     device: device.sample,
     impressions: rand(100),
-    clicks: rand(5000),
+    clicks: rand(4_000) + 1,
     conversions: rand(100),
     average_position: rand(50),
+    cost: rand(5_000) + 10,
     search_impression_share: rand(50)
   )
   n+=1
@@ -83,7 +93,10 @@ end
 
 n = 0
 while n < 26 do
-  GoogleData.create(campaign: campaigns[3], ad_group: ad_groups[3],
+  GoogleData.create(
+    account: accounts[3],
+    campaign: campaigns[3],
+    ad_group: ad_groups[3],
     keyword: ibm_keywords.sample,
     match_type: match_type.sample,
     click_type: click_type.sample,
@@ -92,9 +105,10 @@ while n < 26 do
     month: '10-1-2016',
     device: device.sample,
     impressions: rand(100),
-    clicks: rand(5000),
+    clicks: rand(4_000) + 1,
     conversions: rand(100),
     average_position: rand(50),
+    cost: rand(5_000) + 10,
     search_impression_share: rand(50)
   )
   n+=1

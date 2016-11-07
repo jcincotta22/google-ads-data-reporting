@@ -1,5 +1,6 @@
 class GoogleData < ActiveRecord::Base
   validates :impressions, numericality: true, presence: true
+  validates :account, presence: true
   validates :clicks, numericality: true, presence: true
   validates :cost, numericality: true, presence: true
   validates :conversions, numericality: true, presence: true
