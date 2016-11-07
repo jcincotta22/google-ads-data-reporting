@@ -1,6 +1,6 @@
-class CreateGoogleDatas < ActiveRecord::Migration[5.0]
+class CreateGoogleData < ActiveRecord::Migration[5.0]
   def change
-    create_table :google_datas do |t|
+    create_table :google_data do |t|
       t.string :campaign, null: false
       t.string :ad_group, null: false
       t.string :keyword, null: false
