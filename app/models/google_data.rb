@@ -13,7 +13,7 @@ class GoogleData < ActiveRecord::Base
   validates :ad_group, presence: true
   validates :keyword, presence: true
 
-  ACCOUNT_COLLECTION = []
+  ACCOUNT_COLLECTION = ['all']
 
   GoogleData.all.each do |data|
     ACCOUNT_COLLECTION << data.account

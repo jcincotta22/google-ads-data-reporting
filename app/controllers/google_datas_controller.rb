@@ -1,6 +1,8 @@
 class GoogleDatasController < ApplicationController
   def index
     @account_collection = GoogleData::ACCOUNT_COLLECTION
+    @input = params[:account], params[:campaign], params[:ad_group], params[:table]
+    binding.pry
     @search = GoogleData.where(account: params[:account])
     @mobile = GoogleData.where(device: 'mobile')
     @totals = []
@@ -33,5 +35,6 @@ class GoogleDatasController < ApplicationController
     totals[:cpa] = (cost / conversions)
     return totals
   end
+
 
 end
