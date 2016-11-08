@@ -1,4 +1,6 @@
 class GoogleData < ActiveRecord::Base
+  extend Enumerable
+
   validates :impressions, numericality: true, presence: true
   validates :account, presence: true
   validates :clicks, numericality: true, presence: true
@@ -17,4 +19,5 @@ class GoogleData < ActiveRecord::Base
     ACCOUNT_COLLECTION << data.account
   end
   ACCOUNT_COLLECTION.uniq!
+
 end

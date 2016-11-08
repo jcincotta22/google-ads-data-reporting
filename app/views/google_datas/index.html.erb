@@ -3,25 +3,60 @@
  <table border="1">
     <tr>
       <th>Account</th>
-      <th>Impresisons</th>
+      <th>Impressions</th>
       <th>Cost</th>
       <th>Clicks</th>
+      <th>Conversions</th>
+      <th>CTR</th>
+      <th>CPC</th>
+      <th>Conv Rate</th>
+      <th>CPA</th>
+
     </tr>
       <tr>
         <td><%= @account_collection.first %></td>
-        <td><%= @ibm_impressions %></td>
+        <td><%= @totals[0][:impressions] %></td>
+        <td>$<%= @totals[0][:cost] %></td>
+        <td><%= @totals[0][:clicks] %></td>
+        <td><%= @totals[0][:conversions] %></td>
+        <td><%= @totals[0][:ctr] %>%</td>
+        <td>$<%= @totals[0][:cpc] %></td>
+        <td><%= @totals[0][:conv_rate] %>%</td>
+        <td>$<%= @totals[0][:cpa] %></td>
       </tr>
+
       <tr>
         <td><%= @account_collection[1] %></td>
-        <td><%= @apple_impressions %></td>
+        <td><%= @totals[1][:impressions] %></td>
+        <td>$<%= @totals[1][:cost] %></td>
+        <td><%= @totals[1][:clicks] %></td>
+        <td><%= @totals[1][:conversions] %></td>
+        <td><%= @totals[1][:ctr] %>%</td>
+        <td>$<%= @totals[1][:cpc] %></td>
+        <td><%= @totals[1][:conv_rate] %>%</td>
+        <td>$<%= @totals[1][:cpa] %></td>
       </tr>
       <tr>
         <td><%= @account_collection[2] %></td>
-        <td><%= @paint_impressions %></td>
+        <td><%= @totals[2][:impressions] %></td>
+        <td>$<%= @totals[2][:cost] %></td>
+        <td><%= @totals[2][:clicks] %></td>
+        <td><%= @totals[2][:conversions] %></td>
+        <td><%= @totals[2][:ctr] %>%</td>
+        <td>$<%= @totals[2][:cpc] %></td>
+        <td><%= @totals[2][:conv_rate] %>%</td>
+        <td>$<%= @totals[2][:cpa] %></td>
       </tr>
       <tr>
         <td><%= @account_collection[3] %></td>
-        <td><%= @google_impressions %></td>
+        <td><%= @totals[3][:impressions] %></td>
+        <td>$<%= @totals[3][:cost] %></td>
+        <td><%= @totals[3][:clicks] %></td>
+        <td><%= @totals[3][:conversions] %></td>
+        <td><%= @totals[3][:ctr] %>%</td>
+        <td>$<%= @totals[3][:cpc] %></td>
+        <td><%= @totals[3][:conv_rate] %>%</td>
+        <td>$<%= @totals[3][:cpa] %></td>
       </tr>
 </table>
 
