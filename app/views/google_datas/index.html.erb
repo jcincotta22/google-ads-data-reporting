@@ -3,6 +3,9 @@
 <table border="1">
   <tr>
     <th>Account</th>
+    <% if @keyword %>
+      <th>Keyword</th>
+    <% end %>
     <th>Impressions</th>
     <th>Cost</th>
     <th>Clicks</th>
@@ -32,6 +35,9 @@
       <% @filter_output.each do |filter| %>
         <tr>
           <td><%= filter[:account] %></td>
+          <% if @keyword %>
+            <td><%= filter[:keyword] %></td>
+          <% end %>
           <td><%= filter[:impressions] %></td>
           <td>$<%= filter[:cost] %></td>
           <td><%= filter[:clicks] %></td>
@@ -51,6 +57,13 @@
       <%= check_box_tag("account[selected_account][]", "#{account}") %>
       <%= label_tag("account", "#{account}") %>
     <% end %>
+
+    <%= check_box_tag("device[selected_device][]", "mobile") %>
+    <%= label_tag(:device, "mobile") %>
+    <%= check_box_tag("device[selected_device][]", "tablet") %>
+    <%= label_tag(:device, "tablet") %>
+    <%= check_box_tag("device[selected_device][]", "desktop") %>
+    <%= label_tag(:device, "desktop") %>
     <%= check_box_tag(:campaign, "campaign") %>
     <%= label_tag(:campaign, "Campaign") %>
     <%= check_box_tag(:ad_group, "ad group") %>
