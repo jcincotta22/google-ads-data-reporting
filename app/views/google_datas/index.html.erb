@@ -1,4 +1,9 @@
 <h1>Google Ads Data</h1>
+<%= form_tag(google_datas_path, method: "get") do %>
+  <%= label_tag(:q, "Filter Keyword:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Filter") %>
+<% end %>
 
 <table border="1">
   <tr>

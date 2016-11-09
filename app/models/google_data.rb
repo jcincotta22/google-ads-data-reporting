@@ -14,10 +14,13 @@ class GoogleData < ActiveRecord::Base
   validates :keyword, presence: true
 
   ACCOUNT_COLLECTION = ['all']
+  KEYWORD_COLLECTION = []
 
   GoogleData.all.each do |data|
     ACCOUNT_COLLECTION << data.account
+    KEYWORD_COLLECTION << data.keyword
   end
   ACCOUNT_COLLECTION.uniq!
+  KEYWORD_COLLECTION.uniq!
 
 end

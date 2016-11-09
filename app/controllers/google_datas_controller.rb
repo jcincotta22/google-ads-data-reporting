@@ -3,6 +3,7 @@ class GoogleDatasController < ApplicationController
     @account_collection = GoogleData::ACCOUNT_COLLECTION
     @filter = []
     @keyword = false
+    @q = params[:q]
     if params[:account]
       @input = params[:account][:selected_account], params[:campaign], params[:ad_group], params[:table]
       @input[0].each do |account|
@@ -32,12 +33,17 @@ class GoogleDatasController < ApplicationController
         @input[0].each do |account|
           @filter << GoogleData.where(account: account)
         end
+        keyword_objs = []
         @filter.each do |filter|
-          filter.each do |data|
-            @filter_output << totals([data])
+          GoogleData::KEYWORD_COLLECTION.each do |keywords|
+            keyword_objs << filter.select{ |data|  data.keyword == keywords }
           end
         end
-        @filter_output.sort_by!{|k| k[:account]}
+        keyword_objs.delete([])
+        keyword_objs.each do |data|
+          @filter_output << totals(data)
+          @filter_output.uniq!
+        end
       else
         @input[0].each do |account|
           @filter << GoogleData.where(account: account)
