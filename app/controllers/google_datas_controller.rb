@@ -15,6 +15,7 @@ class GoogleDatasController < ApplicationController
       end
       @filter << GoogleData.where(campaign: @input[1])
       @filter << GoogleData.where(ad_group: @input[2])
+      @filter.delete([])
     end
 
     @filter_output = []
@@ -58,6 +59,7 @@ class GoogleDatasController < ApplicationController
     clicks = 0
     cost = 0
     conversions = 0
+    binding.pry
     totals[:account] = data.first.account
     totals[:keyword] = data.first.keyword
     data.each do |data|
