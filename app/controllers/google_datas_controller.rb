@@ -1,15 +1,36 @@
 class GoogleDatasController < ApplicationController
   def index
     @account_collection = GoogleData::ACCOUNT_COLLECTION
-    @input = params[:account], params[:campaign], params[:ad_group], params[:table]
-    binding.pry
-    @search = GoogleData.where(account: params[:account])
-    @mobile = GoogleData.where(device: 'mobile')
+    @filter = []
+    if params[:account]
+      @input = params[:account][:selected_account], params[:campaign], params[:ad_group], params[:table]
+      @input[0].each do |input|
+        @filter << GoogleData.where(account: input)
+      end
+      @filter << GoogleData.where(campaign: @input[1])
+      @filter << GoogleData.where(ad_group: @input[2])
+      if @input[3] == 'keyword'
+        @filter << GoogleData.where(keyword: @input[3])
+      elsif @input[3] == 'ad'
+        @filter << GoogleData.where(ad: @input[3])
+      else
+        @filter.delete([])
+      end
+    end
+
+    @filter_output = []
     @totals = []
-    @totals << totals(GoogleData.where(account: 'IBM'))
-    @totals << totals(GoogleData.where(account: 'paint-night'))
-    @totals << totals(GoogleData.where(account: 'apple'))
-    @totals << totals(GoogleData.where(account: 'google'))
+    if @filter.empty?
+      @account_collection.each do |account|
+        if account != 'all'
+          @totals << totals(GoogleData.where(account: account))
+        end
+      end
+    else
+      @filter.each do |filter|
+        @filter_output << totals(filter)
+      end
+    end
   end
 
   def totals(data)
@@ -35,6 +56,5 @@ class GoogleDatasController < ApplicationController
     totals[:cpa] = (cost / conversions)
     return totals
   end
-
 
 end
