@@ -59,7 +59,6 @@ class GoogleDatasController < ApplicationController
     clicks = 0
     cost = 0
     conversions = 0
-    binding.pry
     totals[:account] = data.first.account
     totals[:keyword] = data.first.keyword
     data.each do |data|
