@@ -8,6 +8,9 @@
 <table border="1">
   <tr>
     <th>Account</th>
+    <% if @campaign %>
+    <th>Campaign</th>
+    <% end %>
     <% if @keyword %>
       <th>Keyword</th>
     <% end %>
@@ -40,6 +43,9 @@
       <% @filter_output.each do |filter| %>
         <tr>
           <td><%= filter[:account] %></td>
+          <% if @campaign %>
+          <td><%= filter[:campaign] %></td>
+          <% end %>
           <% if @keyword %>
             <td><%= filter[:keyword] %></td>
           <% end %>

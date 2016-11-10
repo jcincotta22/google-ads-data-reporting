@@ -6,7 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 accounts = ['paint-night', 'apple', 'google', 'IBM']
-campaigns = ['first', 'second', 'third', 'fourth', 'fifth']
+paint_campaigns = ['branded', 'crazy', 'display']
+apple_campaigns = ['just for fun', 'crazy', 'final']
+ibm_campaigns = ['first', 'second', 'third']
+google_campaigns = ['search', 'branded', 'third', 'final']
 ad_groups = ['paint-night1', 'apple1', 'google1', 'IBM1']
 paint_night_keywords = ['drink', 'paint', 'eat', 'fun']
 apple_keywords = ['iphone', 'tech', 'mac', 'computers']
@@ -26,7 +29,7 @@ n = 0
 while n < 26 do
   GoogleData.create(
     account: accounts.first,
-    campaign: campaigns.first,
+    campaign: paint_campaigns.sample,
     ad_group: ad_groups.first,
     keyword: paint_night_keywords.sample,
     match_type: match_type.sample,
@@ -49,7 +52,7 @@ n = 0
 while n < 26 do
   GoogleData.create(
     account: accounts[1],
-    campaign: campaigns[1],
+    campaign: apple_campaigns.sample,
     ad_group: ad_groups[1],
     keyword: apple_keywords.sample,
     match_type: match_type.sample,
@@ -72,7 +75,7 @@ n = 0
 while n < 26 do
   GoogleData.create(
     account: accounts[2],
-    campaign: campaigns[2],
+    campaign: google_campaigns.sample,
     ad_group: ad_groups[2],
     keyword: google_keywords.sample,
     match_type: match_type.sample,
@@ -95,7 +98,7 @@ n = 0
 while n < 26 do
   GoogleData.create(
     account: accounts[3],
-    campaign: campaigns[3],
+    campaign: ibm_campaigns.sample,
     ad_group: ad_groups[3],
     keyword: ibm_keywords.sample,
     match_type: match_type.sample,

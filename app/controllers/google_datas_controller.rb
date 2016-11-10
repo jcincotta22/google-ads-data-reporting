@@ -4,14 +4,18 @@ class GoogleDatasController < ApplicationController
     @account_collection = GoogleData::ACCOUNT_COLLECTION
     @filter = []
     @keyword = false
+    @campaign = false
     @q = params[:q]
-
-    get_account_data(params[:account])
-
+    @input = params[:account], params[:campaign], params[:ad_group], params[:table]
     @filter_output = []
     @totals = []
 
+    if @keyword == false && @campaign == false
+      get_account_data(params[:account])
+    end
+    binding.pry
     get_filtered_data(@filter)
+
   end
 
   def totals(data)
@@ -22,6 +26,7 @@ class GoogleDatasController < ApplicationController
     conversions = 0
     totals[:account] = data.first.account
     totals[:keyword] = data.first.keyword
+    totals[:campaign] = data.first.campaign
     data.each do |data|
       impressions += data.impressions
       clicks += data.clicks

@@ -15,12 +15,15 @@ class GoogleData < ActiveRecord::Base
 
   ACCOUNT_COLLECTION = ['all']
   KEYWORD_COLLECTION = []
+  CAMPAIGN_COLLECTION = []
 
   GoogleData.all.each do |data|
     ACCOUNT_COLLECTION << data.account
     KEYWORD_COLLECTION << data.keyword
+    CAMPAIGN_COLLECTION << data.campaign
   end
   ACCOUNT_COLLECTION.uniq!
   KEYWORD_COLLECTION.uniq!
+  CAMPAIGN_COLLECTION.uniq!
 
 end
