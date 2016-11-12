@@ -1,0 +1,71 @@
+
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Account</Data></Cell>
+        <% if @campaign %>
+          <Cell><Data ss:Type="String">Campaign</Data></Cell>
+        <% end %>
+        <% if @keyword %>
+          <Cell><Data ss:Type="String">Keyword</Data></Cell>
+        <% end %>
+        <% if @device %>
+          <Cell><Data ss:Type="String">Device</Data></Cell>
+        <% end %>
+          <Cell><Data ss:Type="String">Impressions</Data></Cell>
+          <Cell><Data ss:Type="String">Cost</Data></Cell>
+          <Cell><Data ss:Type="String">Clicks</Data></Cell>
+          <Cell><Data ss:Type="String">Conversions</Data></Cell>
+          <Cell><Data ss:Type="String">CTR</Data></Cell>
+          <Cell><Data ss:Type="String">CPC</Data></Cell>
+          <Cell><Data ss:Type="String">Conv Rate</Data></Cell>
+          <Cell><Data ss:Type="String">CPA</Data></Cell>
+      </Row>
+  <% if !@totals.empty? %>
+    <% @totals.each do |total| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= total[:account] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:impressions] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:cost] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:clicks] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:conversions] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:ctr] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:cpc] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:conv_rate] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= total[:cpa] %></Data></Cell>
+      </Row>
+    <% end %>
+  <% else %>
+    <% @filter_output.each do |filter| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= filter[:account]%></Data></Cell>
+        <% if @campaign %>
+          <Cell><Data ss:Type="String"><%= filter[:campaign]%></Data></Cell>
+        <% end %>
+        <% if @keyword %>
+          <Cell><Data ss:Type="String"><%= filter[:keyword]%></Data></Cell>
+        <% end %>
+        <% if @device %>
+          <Cell><Data ss:Type="String"><%= filter[:device]%></Data></Cell>
+        <% end %>
+        <Cell><Data ss:Type="Number"><%= filter[:impressions] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:cost] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:clicks] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:conversions] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:ctr] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:cpc] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:conv_rate] %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= filter[:cpa] %></Data></Cell>
+      </Row>
+    <% end %>
+
+  <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

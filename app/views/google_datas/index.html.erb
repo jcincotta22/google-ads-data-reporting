@@ -1,10 +1,47 @@
 <h1>Google Ads Data</h1>
+<%= form_tag google_datas_path, method: 'get' do %>
+  <div>
+  <div>
+    <% @account_collection.each do |account| %>
+      <%= check_box_tag("account[selected_account][]", "#{account}") %>
+      <%= label_tag("account", "#{account}") %>
+    <% end %>
+  </div>
+  <div>
+    <%= check_box_tag("device[selected_device][]", "mobile") %>
+    <%= label_tag(:device, "mobile") %>
+    <%= check_box_tag("device[selected_device][]", "tablet") %>
+    <%= label_tag(:device, "tablet") %>
+    <%= check_box_tag("device[selected_device][]", "desktop") %>
+    <%= label_tag(:device, "desktop") %>
+  </div>
+  <div>
+    <%= check_box_tag(:campaign, "campaign") %>
+    <%= label_tag(:campaign, "Campaign") %>
+  </div>
+  <div>
+    <%= check_box_tag(:ad_group, "ad group") %>
+    <%= label_tag(:ad_group, "Ad Group") %>
+  </div>
+  <div>
+    <%= radio_button_tag(:table, "keyword") %>
+    <%= label_tag(:table_keyword, "Keyword") %>
+    <%= radio_button_tag(:table, "ad") %>
+    <%= label_tag(:table_ad, "Ad") %>
+  </div>
+    <%= submit_tag "Create Table", name: nil %>
+  </div>
+
 <%= form_tag(google_datas_path, method: "get") do %>
   <%= label_tag(:q, "Filter Keyword:") %>
   <%= text_field_tag(:q) %>
   <%= submit_tag("Filter") %>
 <% end %>
 
+<p>
+  Download:
+  <%= link_to "Excel", google_datas_path(request.parameters.merge({format: 'xls'})) %>
+</p>
 <table border="1">
   <tr>
     <th>Account</th>
@@ -13,6 +50,9 @@
     <% end %>
     <% if @keyword %>
       <th>Keyword</th>
+    <% end %>
+    <% if @device %>
+      <th>Device</th>
     <% end %>
     <th>Impressions</th>
     <th>Cost</th>
@@ -35,11 +75,16 @@
           <td><%= total[:ctr] %>%</td>
           <td>$<%= total[:cpc] %></td>
           <td><%= total[:conv_rate] %>%</td>
-          <td>$<%= total[:cpa] %></td>
         </tr>
       <% end %>
 
     <% else %>
+      <% imp_total = 0 %>
+      <% cost_total = 0 %>
+      <% clicks_total = 0 %>
+      <% conv_total = 0 %>
+      <% ctr_total = 0 %>
+      <% imp_total = 0 %>
       <% @filter_output.each do |filter| %>
         <tr>
           <td><%= filter[:account] %></td>
@@ -49,6 +94,9 @@
           <% if @keyword %>
             <td><%= filter[:keyword] %></td>
           <% end %>
+          <% if @device %>
+            <td><%= filter[:device] %></td>
+          <% end %>
           <td><%= filter[:impressions] %></td>
           <td>$<%= filter[:cost] %></td>
           <td><%= filter[:clicks] %></td>
@@ -57,32 +105,34 @@
           <td>$<%= filter[:cpc] %></td>
           <td><%= filter[:conv_rate] %>%</td>
           <td>$<%= filter[:cpa] %></td>
+          <% imp_total += filter[:impressions] %>
+          <% cost_total += filter[:cost] %>
+          <% clicks_total += filter[:clicks] %>
+          <% conv_total += filter[:conversions] %>
+          <% ctr_total += filter[:ctr] %>
         </tr>
       <% end %>
+      <tr>
+        <td>Totals</td>
+        <% if @campaign %>
+          <td></td>
+        <% end %>
+        <% if @keyword %>
+          <td></td>
+        <% end %>
+        <% if @device %>
+          <td></td>
+        <% end %>
+        <td><%= imp_total  %></td>
+        <td>$<%= cost_total  %></td>
+        <td><%= clicks_total  %></td>
+        <td><%= conv_total  %></td>
+        <td><%= ((clicks_total.to_f / imp_total.to_f) * 100).round(2) %>%</td>
+        <td>$<%= cost_total / clicks_total  %></td>
+        <td><%= ((conv_total.to_f / clicks_total.to_f) * 100).round(2) %>%</td>
+        <td>$<%= cost_total / conv_total %></td>
+      </tr>
     <% end %>
 </table>
 
-<%= form_tag google_datas_path, method: 'get' do %>
-  <div>
-    <% @account_collection.each do |account| %>
-      <%= check_box_tag("account[selected_account][]", "#{account}") %>
-      <%= label_tag("account", "#{account}") %>
-    <% end %>
-
-    <%= check_box_tag("device[selected_device][]", "mobile") %>
-    <%= label_tag(:device, "mobile") %>
-    <%= check_box_tag("device[selected_device][]", "tablet") %>
-    <%= label_tag(:device, "tablet") %>
-    <%= check_box_tag("device[selected_device][]", "desktop") %>
-    <%= label_tag(:device, "desktop") %>
-    <%= check_box_tag(:campaign, "campaign") %>
-    <%= label_tag(:campaign, "Campaign") %>
-    <%= check_box_tag(:ad_group, "ad group") %>
-    <%= label_tag(:ad_group, "Ad Group") %>
-    <%= radio_button_tag(:table, "keyword") %>
-    <%= label_tag(:table_keyword, "Keyword") %>
-    <%= radio_button_tag(:table, "ad") %>
-    <%= label_tag(:table_ad, "Ad") %>
-    <%= submit_tag "Create Table", name: nil %>
-  </div>
 <% end %>
