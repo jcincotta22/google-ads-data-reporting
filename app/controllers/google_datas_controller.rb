@@ -12,15 +12,17 @@ class GoogleDatasController < ApplicationController
     @input = params[:account], params[:campaign], params[:ad_group], params[:table]
     @filter_output = []
     @totals = []
+
     respond_to do |format|
       format.html
-      format.xls
+      format.xls { headers["Content-Disposition"] = "filename=google_ads_data.xls" }
     end
 
     if @keyword == false && @campaign == false
       get_account_data(params[:account])
     end
     get_filtered_data(@filter)
+
   end
 
   def totals(data)

@@ -1,4 +1,3 @@
-
 <?xml version="1.0"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -42,6 +41,12 @@
       </Row>
     <% end %>
   <% else %>
+    <% imp_total = 0 %>
+    <% cost_total = 0 %>
+    <% clicks_total = 0 %>
+    <% conv_total = 0 %>
+    <% ctr_total = 0 %>
+    <% imp_total = 0 %>
     <% @filter_output.each do |filter| %>
       <Row>
         <Cell><Data ss:Type="String"><%= filter[:account]%></Data></Cell>
@@ -63,8 +68,32 @@
         <Cell><Data ss:Type="Number"><%= filter[:conv_rate] %></Data></Cell>
         <Cell><Data ss:Type="Number"><%= filter[:cpa] %></Data></Cell>
       </Row>
+        <% imp_total += filter[:impressions] %>
+        <% cost_total += filter[:cost] %>
+        <% clicks_total += filter[:clicks] %>
+        <% conv_total += filter[:conversions] %>
+        <% ctr_total += filter[:ctr] %>
     <% end %>
-
+    <Row>
+      <Cell><Data ss:Type="String">Totals</Data></Cell>
+      <% if @campaign %>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      <% end %>
+      <% if @keyword %>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      <% end %>
+      <% if @device %>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      <% end %>
+      <Cell><Data ss:Type="Number"><%= imp_total  %></Data></Cell>
+      <Cell><Data ss:Type="String">$<%= cost_total  %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= clicks_total  %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= conv_total  %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= ((clicks_total.to_f / imp_total.to_f) * 100).round(2) %>%</Data></Cell>
+      <Cell><Data ss:Type="String">$<%= cost_total / clicks_total  %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= ((conv_total.to_f / clicks_total.to_f) * 100).round(2) %>%</Data></Cell>
+      <Cell><Data ss:Type="String">$<%= cost_total / conv_total %></Data></Cell>
+    </Row>
   <% end %>
     </Table>
   </Worksheet>
