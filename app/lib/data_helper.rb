@@ -111,27 +111,33 @@ module DataHelper
     if params[:day] && !params[:month] && !params[:week]
       @day = true
       get_account_helper(params[:account][:selected_account])
-      @filter.each do |data|
-        date_objs << data
+      @filter.each do |filter|
+        GoogleData::DATE_COLLECTION.each do |date|
+          date_objs << filter.select{ |data|  data.date == date }
+        end
       end
-      get_single_date_helper(date_objs)
+      get_grouped_date_helper(date_objs)
     elsif params[:day] && params[:month] && !params[:week]
       @day = true
       @week = true
       get_account_helper(params[:account][:selected_account])
-      @filter.each do |data|
-        date_objs << data
+      @filter.each do |filter|
+        GoogleData::DATE_COLLECTION.each do |date|
+          date_objs << filter.select{ |data|  data.date == date }
+        end
       end
-      get_single_date_helper(date_objs)
+      get_grouped_date_helper(date_objs)
     elsif params[:day] && params[:month] && params[:week]
       @day = true
       @week = true
       @month = true
       get_account_helper(params[:account][:selected_account])
-      @filter.each do |data|
-        date_objs << data
+      @filter.each do |filter|
+        GoogleData::DATE_COLLECTION.each do |date|
+          date_objs << filter.select{ |data|  data.date == date }
+        end
       end
-      get_single_date_helper(date_objs)
+      get_grouped_date_helper(date_objs)
     elsif !params[:day] && !params[:month] && params[:week]
       @week = true
       get_account_helper(params[:account][:selected_account])
@@ -164,18 +170,22 @@ module DataHelper
       @day = true
       @week = true
       get_account_helper(params[:account][:selected_account])
-      @filter.each do |data|
-        date_objs << data
+      @filter.each do |filter|
+        GoogleData::DATE_COLLECTION.each do |date|
+          date_objs << filter.select{ |data|  data.date == date }
+        end
       end
-      get_single_date_helper(date_objs)
+      get_grouped_date_helper(date_objs)
     elsif params[:day] && params[:month] && !params[:week]
       @month = true
       @day = true
       get_account_helper(params[:account][:selected_account])
-      @filter.each do |data|
-        date_objs << data
+      @filter.each do |filter|
+        GoogleData::DATE_COLLECTION.each do |date|
+          date_objs << filter.select{ |data|  data.date == date }
+        end
       end
-      get_single_date_helper(date_objs)
+      get_grouped_date_helper(date_objs)
     else
       get_account_helper(params[:account][:selected_account])
       @filter.each do |data|

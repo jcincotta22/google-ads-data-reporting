@@ -20,6 +20,7 @@ class GoogleData < ActiveRecord::Base
   AD_GROUP_COLLECTION = []
   WEEK_COLLECTION = []
   MONTH_COLLECTION = []
+  DATE_COLLECTION = []
 
   GoogleData.all.each do |data|
     ACCOUNT_COLLECTION << data.account
@@ -29,6 +30,7 @@ class GoogleData < ActiveRecord::Base
     AD_GROUP_COLLECTION << data.ad_group
     WEEK_COLLECTION << data.week
     MONTH_COLLECTION << data.month
+    DATE_COLLECTION << data.date
   end
   ACCOUNT_COLLECTION.uniq!
   KEYWORD_COLLECTION.uniq!
@@ -37,6 +39,7 @@ class GoogleData < ActiveRecord::Base
   AD_GROUP_COLLECTION.uniq!
   MONTH_COLLECTION.uniq!
   WEEK_COLLECTION.uniq!
+  DATE_COLLECTION.uniq!
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
