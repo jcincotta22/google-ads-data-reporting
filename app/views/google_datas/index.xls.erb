@@ -86,13 +86,13 @@
         <Cell><Data ss:Type="String"></Data></Cell>
       <% end %>
       <Cell><Data ss:Type="Number"><%= imp_total  %></Data></Cell>
-      <Cell><Data ss:Type="String">$<%= cost_total  %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= cost_total  %></Data></Cell>
       <Cell><Data ss:Type="Number"><%= clicks_total  %></Data></Cell>
       <Cell><Data ss:Type="Number"><%= conv_total  %></Data></Cell>
-      <Cell><Data ss:Type="String"><%= ((clicks_total.to_f / imp_total.to_f) * 100).round(2) %>%</Data></Cell>
-      <Cell><Data ss:Type="String">$<%= cost_total / clicks_total  %></Data></Cell>
-      <Cell><Data ss:Type="String"><%= ((conv_total.to_f / clicks_total.to_f) * 100).round(2) %>%</Data></Cell>
-      <Cell><Data ss:Type="String">$<%= cost_total / conv_total %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= ((clicks_total.to_f / imp_total.to_f) * 100).round(2) %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= cost_total / clicks_total  %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= ((conv_total.to_f / clicks_total.to_f) * 100).round(2) %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= cost_total / conv_total %></Data></Cell>
     </Row>
   <% end %>
     </Table>

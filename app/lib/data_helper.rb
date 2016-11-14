@@ -83,6 +83,107 @@ module DataHelper
     end
   end
 
+  def get_account_helper(params_account)
+    @filter = []
+    params_account.each do |account|
+      @filter << GoogleData.where(account: account)
+    end
+  end
+
+  def get_single_date_helper(date_objs)
+    date_objs.delete([])
+    date_objs.first.each do |data|
+      @filter_output << totals([data])
+      @filter_output.uniq!
+    end
+  end
+
+  def get_grouped_date_helper(date_objs)
+    date_objs.delete([])
+    date_objs.each do |data|
+      @filter_output << totals(data)
+      @filter_output.uniq!
+    end
+  end
+
+  def get_time_period_data
+    date_objs = []
+    if params[:day] && !params[:month] && !params[:week]
+      @day = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |data|
+        date_objs << data
+      end
+      get_single_date_helper(date_objs)
+    elsif params[:day] && params[:month] && !params[:week]
+      @day = true
+      @week = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |data|
+        date_objs << data
+      end
+      get_single_date_helper(date_objs)
+    elsif params[:day] && params[:month] && params[:week]
+      @day = true
+      @week = true
+      @month = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |data|
+        date_objs << data
+      end
+      get_single_date_helper(date_objs)
+    elsif !params[:day] && !params[:month] && params[:week]
+      @week = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |filter|
+        GoogleData::WEEK_COLLECTION.each do |week|
+          date_objs << filter.select{ |data|  data.week == week }
+        end
+      end
+      get_grouped_date_helper(date_objs)
+    elsif !params[:day] && params[:month] && !params[:week]
+      @month = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |filter|
+        GoogleData::MONTH_COLLECTION.each do |month|
+          date_objs << filter.select{ |data|  data.month == month }
+        end
+      end
+      get_grouped_date_helper(date_objs)
+    elsif !params[:day] && params[:month] && params[:week]
+      @month = true
+      @week = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |filter|
+        GoogleData::WEEK_COLLECTION.each do |week|
+          date_objs << filter.select{ |data|  data.week == week }
+        end
+      end
+      get_grouped_date_helper(date_objs)
+    elsif params[:day] && !params[:month] && params[:week]
+      @day = true
+      @week = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |data|
+        date_objs << data
+      end
+      get_single_date_helper(date_objs)
+    elsif params[:day] && params[:month] && !params[:week]
+      @month = true
+      @day = true
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |data|
+        date_objs << data
+      end
+      get_single_date_helper(date_objs)
+    else
+      get_account_helper(params[:account][:selected_account])
+      @filter.each do |data|
+        date_objs << data
+      end
+    end
+  end
+
   def get_filtered_data(filter_data)
     filter_data.delete([])
     if @input[3] && !params[:campaign]
@@ -117,6 +218,8 @@ module DataHelper
       get_campaign_and_keyword_data(params[:campaign], params[:table])
     elsif params[:device] && !params[:table]  && !params[:campaign]
       get_selected_device_data(params[:device][:selected_device])
+    elsif params[:day] || params[:month] || params[:week]
+      get_time_period_data
     else
       filter_data.each do |filter|
         @filter_output << totals(filter)

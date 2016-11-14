@@ -57,6 +57,15 @@
 <table border="1">
   <tr>
     <th>Account</th>
+    <% if @month %>
+    <th>Month</th>
+    <% end %>
+    <% if @week %>
+    <th>Week</th>
+    <% end %>
+    <% if @day %>
+      <th>Date</th>
+    <% end %>
     <% if @campaign %>
     <th>Campaign</th>
     <% end %>
@@ -100,6 +109,15 @@
       <% @filter_output.each do |filter| %>
         <tr>
           <td><%= filter[:account] %></td>
+          <% if @month %>
+          <td><%= filter[:month] %></td>
+          <% end %>
+          <% if @week %>
+          <td><%= filter[:week] %></td>
+          <% end %>
+          <% if @day %>
+            <td><%= filter[:date] %></td>
+          <% end %>
           <% if @campaign %>
           <td><%= filter[:campaign] %></td>
           <% end %>
@@ -126,6 +144,15 @@
       <% end %>
       <tr>
         <td>Totals</td>
+        <% if @month %>
+        <td></td>
+        <% end %>
+        <% if @week %>
+        <td></td>
+        <% end %>
+        <% if @day %>
+          <td></td>
+        <% end %>
         <% if @campaign %>
           <td></td>
         <% end %>

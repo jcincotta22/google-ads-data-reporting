@@ -12,7 +12,6 @@ class GoogleDatasController < ApplicationController
     @input = params[:account], params[:campaign], params[:ad_group], params[:table]
     @filter_output = []
     @totals = []
-
     respond_to do |format|
       format.html
       format.xls { headers["Content-Disposition"] = "filename=google_ads_data.xls" }
@@ -35,6 +34,9 @@ class GoogleDatasController < ApplicationController
     totals[:keyword] = data.first.keyword
     totals[:campaign] = data.first.campaign
     totals[:device] = data.first.device
+    totals[:date] = data.first.date
+    totals[:week] = data.first.week
+    totals[:month] = data.first.month
     data.each do |data|
       impressions += data.impressions
       clicks += data.clicks
