@@ -1,5 +1,6 @@
 class GoogleDatasController < ApplicationController
   include DataHelper
+
   def index
     @account_collection = GoogleData::ACCOUNT_COLLECTION
     @google_data = GoogleData.all
@@ -12,6 +13,7 @@ class GoogleDatasController < ApplicationController
     @input = params[:account], params[:campaign], params[:ad_group], params[:table]
     @filter_output = []
     @totals = []
+
     respond_to do |format|
       format.html
       format.xls { headers["Content-Disposition"] = "filename=google_ads_data.xls" }
