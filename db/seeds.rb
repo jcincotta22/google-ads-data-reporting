@@ -26,7 +26,7 @@ oct_date = ['10-30-2016', '10-31-2016', '10-1-2016', '10-2-2016', '10-4-2016',
 week = ['week 1', 'week 2', 'week 3', 'week 4']
 
 n = 0
-while n < 26 do
+while n < 100000 do
   GoogleData.create(
     account: accounts.first,
     campaign: paint_campaigns.sample,
@@ -49,7 +49,7 @@ while n < 26 do
 end
 
 n = 0
-while n < 26 do
+while n < 100000 do
   GoogleData.create(
     account: accounts[1],
     campaign: apple_campaigns.sample,
@@ -72,7 +72,7 @@ while n < 26 do
 end
 
 n = 0
-while n < 26 do
+while n < 10000 do
   GoogleData.create(
     account: accounts[2],
     campaign: google_campaigns.sample,
@@ -95,7 +95,7 @@ while n < 26 do
 end
 
 n = 0
-while n < 26 do
+while n < 10000 do
   GoogleData.create(
     account: accounts[3],
     campaign: ibm_campaigns.sample,

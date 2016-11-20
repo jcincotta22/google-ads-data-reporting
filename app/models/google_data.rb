@@ -1,5 +1,14 @@
 class GoogleData < ActiveRecord::Base
   extend Enumerable
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
+  scope :keyword_campaign_view, -> account, keyword, campaign { where(account: account, keyword: keyword, campaign: campaign) }
+  scope :keyword_campaign_day_view, -> account, keyword, campaign, day { where(account: account, keyword: keyword, campaign: campaign, date: day)}
+  scope :keyword_campaign_week_view, -> account, keyword, campaign, week { where(account: account, keyword: keyword, campaign: campaign, week: week)}
+  scope :keyword_campaign_month_view, -> account, keyword, campaign, month { where(account: account, keyword: keyword, campaign: campaign, month: month)}
+  scope :campaign_week, -> account, campaign, week { where(account: account, campaign: campaign, week: week) }
+  scope :all_account_data, -> account { where(account: account)}
 
   validates :impressions, numericality: true, presence: true
   validates :account, presence: true
@@ -49,5 +58,6 @@ class GoogleData < ActiveRecord::Base
       end
     end
   end
+
 
 end

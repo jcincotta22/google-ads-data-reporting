@@ -1,7 +1,7 @@
 class GoogleDatasController < ApplicationController
   include DataHelper
-
   def index
+    binding.pry
     @account_collection = GoogleData::ACCOUNT_COLLECTION
     @google_data = GoogleData.all
     @filter = []
@@ -53,7 +53,7 @@ class GoogleDatasController < ApplicationController
     totals[:cpc] = (cost / clicks)
     totals[:conv_rate] = ((conversions.to_f / clicks.to_f) * 100).round(2)
     totals[:cpa] = (cost / conversions)
-    return totals
+    totals
   end
 
 end

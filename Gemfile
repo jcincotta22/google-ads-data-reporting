@@ -7,6 +7,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'listen'
 gem "actionpack", '5.0.0.1'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
+
 
 group :development, :test do
   gem 'capybara'
